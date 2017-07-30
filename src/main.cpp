@@ -12,7 +12,6 @@
 #include "exchanges/kraken.h"
 #include "exchanges/quadrigacx.h"
 #include "exchanges/itbit.h"
-#include "exchanges/btce.h"
 #include "exchanges/poloniex.h"
 #include "exchanges/gdax.h"
 #include "utils/send_email.h"
@@ -200,21 +199,6 @@ int main(int argc, char** argv) {
     getLimitPrice[index] = ItBit::getLimitPrice;
 
     dbTableName[index] = "itbit";
-    createTable(dbTableName[index], params);
-
-    index++;
-  }
-  if (params.btceEnable &&
-     (params.btceApi.empty() == false || (params.demoMode == true && params.tradedPair().compare("BTC/USD") == 0))) {
-    params.addExchange("BTC-e", params.btceFees, false, true);
-    getQuote[index] = BTCe::getQuote;
-    getAvail[index] = BTCe::getAvail;
-    sendLongOrder[index] = BTCe::sendLongOrder;
-    isOrderComplete[index] = BTCe::isOrderComplete;
-    getActivePos[index] = BTCe::getActivePos;
-    getLimitPrice[index] = BTCe::getLimitPrice;
-
-    dbTableName[index] = "btce";
     createTable(dbTableName[index], params);
 
     index++;
